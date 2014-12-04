@@ -8,13 +8,19 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Button Content="Open" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="1.786,2.209" Margin="190,44,0,0" Click="Button_Click"/>
+        <Button Content="Open" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="1.786,2.209" Margin="149,45,0,0" Click="Button_Click"/>
         <TextBox x:Name="txtText"  HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Margin="46,107,0,0" Height="600" Width="600"/>
         <Grid HorizontalAlignment="Left" Height="600" VerticalAlignment="Top" Width="600" Margin="709,107,0,0">
             <Image x:Name="SelectedImage" HorizontalAlignment="Center" Height="600" VerticalAlignment="Center" Width="600" Margin="0"/>
             <Canvas Name="MyCanvas" HorizontalAlignment="Center" Height="600" VerticalAlignment="Center" Width="600" Margin="0">
             </Canvas>
         </Grid>
+        <ComboBox x:Name="OcrLanguage" HorizontalAlignment="Left" VerticalAlignment="Top" Width="176" Margin="274,48,0,0" SelectedIndex="0">
+            <x:String>English</x:String>
+            <x:String>Swedish</x:String>
+            <x:String>Russian</x:String>
+        </ComboBox>
+
 
     </Grid>
 </Page>

@@ -32,7 +32,7 @@ namespace OCRTest
             fileOpenPicker.FileTypeFilter.Add(".jpeg");
             fileOpenPicker.FileTypeFilter.Add(".png");
             var selectedImageFile = await fileOpenPicker.PickSingleFileAsync();
-            await _ocrHelper.ProcessImage(selectedImageFile);
+            await _ocrHelper.ProcessImage(selectedImageFile, OcrLanguage.SelectedItem.ToString());
         }
 
         public void ClearCanvas()
