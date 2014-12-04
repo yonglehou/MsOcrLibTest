@@ -30,7 +30,7 @@ namespace OCRTest
         }
 
 
-        public async Task ProcessImage(StorageFile selectedImageFile)
+        public async Task ProcessImage(StorageFile selectedImageFile, string language)
         {
             if (selectedImageFile != null)
             {
@@ -52,19 +52,21 @@ namespace OCRTest
                     _imageHeight = bitmapImage.PixelHeight;
                     _imageWidth = bitmapImage.PixelWidth;
                     _view.SetImage(bitmapImage);
-                    await ProcessOCR(stream);
+                    await ProcessOCR(stream, language);
                 }
             }
         }
 
 
-        private async Task ProcessOCR(IRandomAccessStream stream)
+        private async Task ProcessOCR(IRandomAccessStream stream, string language)
         {
             _view.ClearCanvas();
             var imageData = await ImageData.CreateFromStream(stream);
-            var ocrEngine = new OcrEngine(OcrLanguage.Russian);
-            //var ocrEngine = new OcrEngine(OcrLanguage.Swedish);
-            //var ocrEngine = new OcrEngine(OcrLanguage.English);
+            var ocrLanguage = OcrLanguage.English;
+            if (language.Equals("Swedish")) ocrLanguage = OcrLanguage.Swedish;
+            if (language.Equals("Russian")) ocrLanguage = OcrLanguage.Russian;
+
+            var ocrEngine = new OcrEngine(ocrLanguage);
 
             var rec = await ocrEngine.RecognizeAsync(imageData.OrientedPixelHeight, imageData.OrientedPixelWidth, imageData.Pixels);
 

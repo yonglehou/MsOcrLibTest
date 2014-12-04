@@ -10,7 +10,7 @@
 
     <Viewbox>
     <Grid>
-        <Button x:Name="btnPhoto" Content="Take Photo" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="103,15,0,0" Click="btnPhoto_Click"/>
+        <Button x:Name="btnPhoto" Content="Take Photo" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0" Click="btnPhoto_Click"/>
         <TextBox x:Name="txtText" HorizontalAlignment="Left" Margin="10,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="323" Width="313"/>
         <Grid Margin="346,25,0,0" Width="366" Height="366">
             <Image x:Name="SelectedImage" HorizontalAlignment="Center" Height="366" VerticalAlignment="Center" Width="366" Margin="0" Stretch="Uniform"/>
@@ -18,7 +18,12 @@
             </Canvas>
 
         </Grid>
+            <ComboBox x:Name="OcrLanguage" HorizontalAlignment="Left" VerticalAlignment="Top" Width="176" Margin="147,16,0,0" SelectedIndex="0">
+                <x:String>English</x:String>
+                <x:String>Swedish</x:String>
+                <x:String>Russian</x:String>
+            </ComboBox>
 
-    </Grid>
+        </Grid>
     </Viewbox>
 </Page>

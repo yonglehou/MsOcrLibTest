@@ -63,7 +63,7 @@ namespace OCRTest
                 if (fileOpenPickerArgs != null && fileOpenPickerArgs.Files.Count > 0)
                 {
                     var selectedImageFile = fileOpenPickerArgs.Files[0];
-                    await _ocrHelper.ProcessImage(selectedImageFile);
+                    await _ocrHelper.ProcessImage(selectedImageFile, OcrLanguage.SelectedItem.ToString());
                 }
             };
         }
