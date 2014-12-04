@@ -34,23 +34,6 @@ namespace OCRTest
             var selectedImageFile = await fileOpenPicker.PickSingleFileAsync();
             await _ocrHelper.ProcessImage(selectedImageFile);
         }
-        public void DrawRectangle(int left, int top, int width, int height, double? textAngle)
-        {
-            var imgHeight = SelectedImage.ActualHeight;
-            var imgWidth = SelectedImage.ActualHeight;
-            var rectangle = new Rectangle
-            {
-                Height = height * imgHeight / 2600,
-                Width = width * imgWidth / 2600,
-
-            };
-            rectangle.Stroke = new SolidColorBrush(Colors.White);
-
-            Canvas.SetLeft(rectangle, left * imgHeight / 2600);
-            Canvas.SetTop(rectangle, top * imgWidth / 2600);
-            MyCanvas.Children.Add(rectangle);
-        }
-
 
         public void ClearCanvas()
         {
@@ -62,10 +45,15 @@ namespace OCRTest
             txtText.Text = text;
         }
 
-
         public void SetImage(BitmapImage bitmapImage)
         {
             SelectedImage.Source = bitmapImage;
+        }
+
+
+        public Canvas GetCanvas()
+        {
+            return MyCanvas;
         }
     }
 }

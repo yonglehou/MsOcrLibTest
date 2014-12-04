@@ -1,4 +1,6 @@
 ﻿
+using System;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
 using Windows.Storage.Pickers;
@@ -17,6 +19,7 @@ namespace OCRTest
     public sealed partial class MainPage : Page, IMainView
     {
         private OCRHelper _ocrHelper;
+        private FileOpenPicker _fileOpenPicker;
 
         public MainPage()
         {
@@ -28,19 +31,28 @@ namespace OCRTest
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            RegisterFileOpenPicker();
         }
+
+
 
         private void btnPhoto_Click(object sender, RoutedEventArgs e)
         {
+            _fileOpenPicker.PickSingleFileAndContinue();
+        }
+
+        private void RegisterFileOpenPicker()
+        {
             var view = CoreApplication.GetCurrentView();
 
-            var fileOpenPicker = new FileOpenPicker();
-            fileOpenPicker.ViewMode = PickerViewMode.Thumbnail;
-            fileOpenPicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
-            fileOpenPicker.FileTypeFilter.Add(".jpg");
-            fileOpenPicker.FileTypeFilter.Add(".jpeg");
-            fileOpenPicker.FileTypeFilter.Add(".png");
-            fileOpenPicker.PickSingleFileAndContinue();
+            _fileOpenPicker = new FileOpenPicker
+            {
+                ViewMode = PickerViewMode.Thumbnail,
+                SuggestedStartLocation = PickerLocationId.PicturesLibrary
+            };
+            _fileOpenPicker.FileTypeFilter.Add(".jpg");
+            _fileOpenPicker.FileTypeFilter.Add(".jpeg");
+            _fileOpenPicker.FileTypeFilter.Add(".png");
 
 
             view.Activated += async (applicationView, args) =>
@@ -54,25 +66,6 @@ namespace OCRTest
                     await _ocrHelper.ProcessImage(selectedImageFile);
                 }
             };
-
-        }
-
-
-        public void DrawRectangle(int left, int top, int width, int height, double? textAngle)
-        {
-            var imgHeight = SelectedImage.ActualHeight;
-            var imgWidth = SelectedImage.ActualHeight;
-            var rectangle = new Rectangle
-            {
-                Height = height * imgHeight / 2600,
-                Width = width * imgWidth / 2600,
-
-            };
-            rectangle.Stroke = new SolidColorBrush(Colors.White);
-
-            Canvas.SetLeft(rectangle, left * imgHeight / 2600);
-            Canvas.SetTop(rectangle, top * imgWidth / 2600);
-            MyCanvas.Children.Add(rectangle);
         }
 
 
@@ -90,6 +83,12 @@ namespace OCRTest
         public void SetImage(BitmapImage bitmapImage)
         {
             SelectedImage.Source = bitmapImage;
+        }
+
+
+        public Canvas GetCanvas()
+        {
+            return MyCanvas;
         }
     }
 }
